@@ -52,6 +52,12 @@ Dan untuk menjalankan mode development
 php artisan serve
 ```
 
+Untuk login sebagai Admin, bisa menggunakan akun berikut:
+
+| email                 | password | role  |
+|-----------------------|----------|-------|
+| iqbaleff214@gmail.com | password | Admin |
+
 ## Cara deployment/hosting
 Sama seperti deployment laravel pada umumnya.
 
