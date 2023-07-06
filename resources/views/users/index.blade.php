@@ -58,7 +58,7 @@
                                     {{ $user->email }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <form action="{{ route('users.destroy', $user) }}" method="post">
+                                    <form action="{{ route('users.destroy', $user) }}" method="post" onsubmit="return confirm('Are you sure?')">
                                         @csrf
                                         @method('DELETE')
                                         <x-danger-button class="ml-3">

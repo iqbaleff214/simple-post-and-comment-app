@@ -25,6 +25,13 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('/users', \App\Http\Controllers\UserController::class)
             ->only(['index', 'destroy']);
+        Route::resource('/posts', \App\Http\Controllers\PostController::class)
+            ->only(['store', 'update', 'destroy', 'edit', 'show']);
+
+        Route::post('/posts/comments', [\App\Http\Controllers\CommentController::class, 'store'])
+            ->name('comments.store');
+        Route::delete('/posts/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'destroy'])
+            ->name('comments.destroy');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

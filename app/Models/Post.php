@@ -11,7 +11,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'content', 'user_id'];
+    protected $fillable = ['title', 'content', 'user_id',];
 
     public function author(): BelongsTo
     {
@@ -23,7 +23,7 @@ class Post extends Model
         return $this->hasMany(Comment::class, 'post_id', 'id');
     }
 
-    public function scopeMine($query)
+    public function scopeWhereMine($query)
     {
         $query->where('user_id', auth()->user()->id);
     }
@@ -31,16 +31,19 @@ class Post extends Model
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->where('title', 'like', '%' . $search . '%');
+            $query->where('title', 'like', '%' . $search . '%')
+                ->orWhereHas('author', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                });
         })->when($filters['order'] ?? null, function ($query, $orderBy) {
             if ($orderBy == 'oldest') {
                 $query->oldest();
             } else {
                 $query->latest();
             }
-        })->when($filters['mine'] ?? null, function ($query, $mine) {
+        }, fn() => $query->latest())->when($filters['mine'] ?? null, function ($query, $mine) {
             if ($mine == 'true') {
-                $query->mine();
+                $query->where('user_id', auth()?->user()?->id);
             }
         });
     }
