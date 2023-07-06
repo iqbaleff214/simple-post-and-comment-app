@@ -25,7 +25,8 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'tag_id' => 'nullable',
         ];
     }
 }

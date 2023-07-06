@@ -26,6 +26,7 @@ class StorePostRequest extends FormRequest
         return [
             'title' => ['required', 'string'],
             'content' => 'required',
+            'tag_id' => 'nullable',
         ];
     }
 }

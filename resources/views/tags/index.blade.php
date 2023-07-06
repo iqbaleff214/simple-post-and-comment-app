@@ -1,12 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Users') }}
+            {{ __('Tags') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <a href="{{ route('tags.create') }}" class="mb-4 inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">New Tag</a>
+
             <form action="">
                 <x-text-input name="search" placeholder="Search" type="search" class="mb-4 block w-full"
                               :value="old('search', $filters['search'])"
@@ -31,13 +33,10 @@
                             class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 pb-4">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                Joined At
+                                Created At
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Name
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Email
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Action
@@ -45,20 +44,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $user)
+                        @foreach($tags as $tag)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td class="px-6 py-4">
-                                    {{ $user->created_at }}
+                                    {{ $tag->created_at }}
                                 </td>
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $user->name }}
+                                    {{ $tag->name }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $user->email }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    <form action="{{ route('users.destroy', $user) }}" method="post" onsubmit="return confirm('Are you sure?')">
+                                    <a href="{{ route('tags.edit', $tag) }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Edit</a>
+                                    <form action="{{ route('tags.destroy', $tag) }}" method="post" onsubmit="return confirm('Are you sure?')" style="display: inline">
                                         @csrf
                                         @method('DELETE')
                                         <x-danger-button class="ml-3">
@@ -74,7 +71,7 @@
                 </div>
             </div>
 
-            {!! $users->links() !!}
+            {!! $tags->links() !!}
         </div>
     </div>
 </x-app-layout>

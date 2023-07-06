@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Comment;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,20 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
         \App\Models\User::factory()->create([
             'name' => 'M Iqbal Effendi',
             'email' => 'iqbaleff214@gmail.com',
             'role' => 'admin',
         ]);
 
+        Tag::factory(15)->create();
+
         \App\Models\User::factory(5)
-            ->has(
-                \App\Models\Post::factory()
-                    ->count(10)
-                    ->has(Comment::factory(15), 'author')
-            )
+            ->has(\App\Models\Post::factory()->count(10))
             ->create();
     }
 }

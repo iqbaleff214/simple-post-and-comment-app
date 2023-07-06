@@ -12,7 +12,7 @@
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-4">
                         <div class="p-6 text-gray-900">
                             <h1 class="font-semibold text-xl mb-4">{{ $post->title }}</h1>
-                            <p class="text-sm">{{ $post?->author?->name }} | {{ $post->created_at }}</p>
+                            <p class="text-sm">{{ $post?->author?->name }} | {{ $post->created_at }} @if($post?->tag) | {{ $post->tag?->name }} @endif</p>
                             <hr class="mt-4 mb-4">
                             <p>{{ $post->content }}</p>
 

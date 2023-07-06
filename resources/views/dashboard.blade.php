@@ -44,6 +44,13 @@
                             <p class="my-3 text-sm leading-6 text-gray-600">Write a few sentences about what you
                                 think.</p>
 
+                            <select name="tag_id" placeholder="Select tag" class="block mb-4 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                <option selected disabled>Select a tag for your post.</option>
+                                @foreach($tags as $tag)
+                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                @endforeach
+                            </select>
+
                             <x-primary-button>{{ __('Post') }}</x-primary-button>
                         </form>
                     </div>
@@ -69,9 +76,41 @@
 
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-4">
                         <div class="p-6 text-gray-900">
-                            <h1 class="font-semibold text-lg mb-4">Tags</h1>
-                            <hr>
+                            <h1 class="font-semibold text-lg">Tags</h1>
+                            <hr class="my-4">
 
+                            <a
+                                href="{{ request()->fullUrlWithQuery(['filter' => '']) }}"
+                                @class([
+                                    'bg-blue-100' => $filters['filter'] == '' || !$filters['filter'],
+                                    'text-blue-800' => $filters['filter'] == '' || !$filters['filter'],
+                                    'bg-gray-100' => $filters['filter'] != '' || $filters['filter'],
+                                    'text-gray-800' => $filters['filter'] != '' || $filters['filter'],
+                                    'text-sm' => true,
+                                    'font-medium' => true,
+                                    'mr-2' => true,
+                                    'px-2.5' => true,
+                                    'py-0.5' => true,
+                                    'rounded-full' => true,
+                                ])>All</a>
+                            @foreach($tags as $tag)
+                            <a
+                                href="{{ request()->fullUrlWithQuery(['filter' => $tag->id]) }}"
+                                @class([
+                                    'bg-blue-100' => $filters['filter'] == $tag->id,
+                                    'text-blue-800' => $filters['filter'] == $tag->id,
+                                    'bg-gray-100' => $filters['filter'] != $tag->id,
+                                    'text-gray-800' => $filters['filter'] != $tag->id,
+                                    'text-sm' => true,
+                                    'font-medium' => true,
+                                    'mr-2' => true,
+                                    'px-2.5' => true,
+                                    'py-0.5' => true,
+                                    'rounded-full' => true,
+                                ])>
+                                {{ $tag->name }}
+                            </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -83,7 +122,9 @@
                                 <h1 class="font-semibold text-xl mb-4">
                                     <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
                                 </h1>
-                                <p class="text-sm">{{ $post?->author?->name }} | {{ $post->created_at }}</p>
+                                <p class="text-sm">
+                                    {{ $post?->author?->name }} | {{ $post->created_at }} @if($post?->tag) | {{ $post->tag?->name }} @endif
+                                </p>
                                 <hr class="mt-4 mb-4">
                                 <p>{{ \Illuminate\Support\Str::limit($post->content, 225) }}</p>
 
@@ -92,6 +133,8 @@
                                        class="text-indigo-600 underline">Comment ({{ count($post->comments) }})</a>
                                     @if(auth()->user()->id == $post->user_id)
                                         | <a href="{{ route('posts.edit', $post) }}" class="text-indigo-600 underline">Edit</a>
+                                    @endif
+                                    @if(auth()->user()->id == $post->user_id || auth()->user()->role == 'admin')
                                         |
                                         <form action="{{ route('posts.destroy', $post) }}" method="post"
                                               style="display: inline" onsubmit="return confirm('Are you sure?')">

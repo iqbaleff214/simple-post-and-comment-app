@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -43,6 +44,7 @@ class PostController extends Controller
         $post->load(['comments', 'comments.author']);
         return \view('posts.edit', [
             'post' => $post,
+            'tags' => Tag::all(),
         ]);
     }
 

@@ -66,6 +66,6 @@ class User extends Authenticatable implements MustVerifyEmail
             } else {
                 $query->latest();
             }
-        });
+        }, fn() => $query->latest());
     }
 }
