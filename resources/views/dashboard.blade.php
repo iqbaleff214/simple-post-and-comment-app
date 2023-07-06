@@ -9,7 +9,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+                    <h1 class="font-semibold text-xl">Software engineer test - Type E</h1>
+                    <hr class="mt-4 mb-4">
+                    <h3 class="text-lg font-semibold">Objective:</h3>
+                    <p>The objective of this assignment is to build web application using Laravel that incorporates various features such as authentication, authorization, email notifications, third-party API integration, and more. You will need to create a custom database schema with multiple tables, and implement the necessary functionality to manage the data stored in those tables.</p>
                 </div>
             </div>
         </div>
