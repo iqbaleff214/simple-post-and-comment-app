@@ -9,7 +9,8 @@
 Untuk fitur-fitur auth seperti login, register, dll pada proyek ini menggunakan Breeze. Adapun pembatasan hak akses hanya menggunakan middleware dan form request.
 
 ## Notifikasi Email dan Integrasinya
-Secara default Laravel dan Breeze sudah mendukung notifikasi email, dan langsung bisa menggunakan mailtrap cukup dengan memasukkan kredensialnya di .env
+Secara default Laravel dan Breeze sudah mendukung notifikasi email, dan langsung bisa menggunakan mailtrap cukup dengan memasukkan kredensialnya di .env.
+Pada proyek ini notifikasi email akan dikirim pada beberapa kejadian, yakni: verifikasi akun, komentar baru, dan penghapusan akun oleh admin.
 
 ## Cara install
 Untuk setup sama seperti app laravel pada umumnya, cukup jalankan beberapa perintah dibawah:
