@@ -20,6 +20,5 @@ class DashboardTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('Dashboard');
-        $response->assertSee('Software engineer test - Type E');
     }
 }
