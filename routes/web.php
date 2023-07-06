@@ -24,8 +24,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\PageController::class, 'home'])->name('dashboard');
 
         Route::resource('/users', \App\Http\Controllers\UserController::class)
-            ->only(['index', 'destroy']);
-        Route::resource('/tags', \App\Http\Controllers\TagController::class);
+            ->only(['index', 'destroy'])->middleware('role:admin');
+        Route::resource('/tags', \App\Http\Controllers\TagController::class)->middleware('role:admin');
         Route::resource('/posts', \App\Http\Controllers\PostController::class)
             ->only(['store', 'update', 'destroy', 'edit', 'show']);
 
