@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
+use App\Notifications\NewCommentNotification;
 use Illuminate\Http\RedirectResponse;
 
 class CommentController extends Controller
@@ -15,7 +16,10 @@ class CommentController extends Controller
     public function store(StoreCommentRequest $request): RedirectResponse
     {
         try {
-            Comment::create(array_merge($request->validated(), ['user_id' => auth()->user()->id]));
+            $comment = Comment::create(array_merge($request->validated(), ['user_id' => auth()->user()->id]));
+            if ($comment?->post?->user_id != auth()->user()->id) {
+                $comment?->post?->author?->notify(new NewCommentNotification($comment));
+            }
             return back();
         } catch (\Exception $exception) {
             return back()->with('message', $exception->getMessage());

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\AccountDeletedNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -23,6 +24,7 @@ class UserController extends Controller
     public function destroy(User $user): RedirectResponse
     {
         try {
+            $user->notify(new AccountDeletedNotification($user));
             $user->delete();
             return back();
         } catch (\Exception $exception) {
