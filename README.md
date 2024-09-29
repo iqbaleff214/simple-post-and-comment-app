@@ -1,4 +1,4 @@
-# Laravel Test
+# Simple Post and Comment
 
 Aplikasi ini adalah media sosial sederhana untuk mem-posting apapun yang pengguna inginkan dan orang lain dapat memberikan komentar atas postingan tersebut. Aplikasi ini bukan sekadar aplikasi CRUD yang menambahkan semua fungsionalitas CRUD pada semua table di database, melainkan hanya memanfaatkan beberapa fungsi CRUD sesuai dengan kebutuhan fitur.
 
@@ -24,7 +24,7 @@ Adapun jika log in sebagai Admin, maka:
 - Admin dapat menambahkan, mengedit, dan menghapus tag postingan
 
 ## Skema Database
-<img src="https://github.com/okanemo/M.-Iqbal-Effendi/blob/main/docs/db.png" alt="database schema">
+<img src="/docs/db.png" alt="database schema">
 
 ## Auth dan Pembatasan hak akses pengguna
 Untuk fitur-fitur auth seperti login, register, dll pada proyek ini menggunakan Breeze. Adapun pembatasan hak akses hanya menggunakan middleware dan form request.
